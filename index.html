@@ -8,16 +8,32 @@
         <script src="https://unpkg.com/vue@next"></script>
     </head>
     <body>
-        <div id="app">
-            <div>
-                <h1>Patient Info</h1>
-                <p>{{ content.patientName }}</p>
-                <p><input type="text" v-model="content.patientName"></input></p>
-                <p><input type="text" v-model="inputJSON"></input></p>
+        <main id="app">
+            <section>
+                <input type="text" v-model="inputJSON">
                 <button @click="loadJSON">Load</button>
-                <p>{{ outputJSON }}</p>
-            </div>
-        </div>
+            </section>
+            <section>
+                <h2>Patient Info</h2>
+                <div><label>Name:</label><input type="text" v-model="content.patientName"></div>
+                <div>
+                    <input type="radio" v-model="content.sex" id="female" name="sex" value="0"><label for="female">Female</label>
+                    <input type="radio" v-model="content.sex" id="male" name="sex" value="1"><label for="male">Male</label>
+                </div>
+            </section>
+            <section>
+                <h2>Assessment</h2>
+            </section>
+            <section>
+                <h2>Plan</h2>
+            </section>
+            <section>
+                <h2>Timeline</h2>
+            </section>
+            <section>
+                <code>{{ outputJSON }}</code>
+            </section>
+        </main>
     </body>
     <script src="main.js"></script>
 </html>
