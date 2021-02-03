@@ -15,14 +15,44 @@
             </section>
             <section>
                 <h2>Patient Info</h2>
-                <div><label>Name:</label><input type="text" v-model="content.patientName"></div>
+                <div><label>Name:</label><input type="text" v-model="patient.name"></div>
+                <div><label>Chart No:</label><input type="text" v-model="patient.chartNumber"></div>
+                <div><label>Age:</label><input type="number" v-model="patient.age" id="age"></div>
                 <div>
-                    <input type="radio" v-model="content.sex" id="female" name="sex" value="0"><label for="female">Female</label>
-                    <input type="radio" v-model="content.sex" id="male" name="sex" value="1"><label for="male">Male</label>
+                    <input type="radio" v-model="patient.sex" id="female" value="0"><label for="female">Female</label>
+                    <input type="radio" v-model="patient.sex" id="male" value="1"><label for="male">Male</label>
                 </div>
             </section>
             <section>
-                <h2>Assessment</h2>
+                <h2>Problems List</h2>
+                <button @click="patient.problems.unshift({})">
+                    New Problem
+                </button>
+                <ul>
+                    <li v-for="(problem, index) in patient.problems">
+                        <label>Recorded on:</label>
+                        <input
+                            type="datetime-local"
+                            v-model="problem.recordedOn"
+                        />
+                        <label>Problem:</label>
+                        <input
+                            type="text"
+                            v-model="problem.name"
+                        />
+                        <label>Target:</label>
+                        <input
+                            type="text"
+                            v-model="problem.target"
+                        />
+                        <label>Resolved/Migrated:</label>
+                        <input
+                            type="datetime-local"
+                            v-model="problem.resolvedAt"
+                        />
+                        <button @click="patient.problems.splice(index, 1)">Delete</button>
+                    </li>
+                </ul>
             </section>
             <section>
                 <h2>Plan</h2>
@@ -31,7 +61,34 @@
                 <h2>Timeline</h2>
             </section>
             <section>
-                <code>{{ outputJSON }}</code>
+                <h2>Input</h2>
+                <button @click="patient.events.unshift({})">
+                    Add event
+                </button>
+                <ul>
+                    <li v-for="(event, index) in patient.events.sort((a, b) => a.date - b.date)">
+                        <label>Date & Time:</label>
+                        <input
+                            type="datetime-local"
+                            v-model="event.date"
+                        />
+                        <label>Type:</label>
+                        <input
+                            type="text"
+                            v-model="event.type"
+                        />
+                        <label>Value:</label>
+                        <input
+                            type="text"
+                            v-model="event.value"
+                        />
+                        <button @click="patient.events.splice(index, 1)">Delete</button>
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h2>Data String</h2>
+                <textarea>{{ outputJSON }}</textarea>
             </section>
         </main>
     </body>
